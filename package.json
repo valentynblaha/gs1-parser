@@ -1,5 +1,5 @@
 {
-  "name": "gs1-toolkit",
+  "name": "gs1-parser",
   "version": "1.0.0",
   "description": "A gs1-barcode parser. Based on code from https://github.com/flashcloud/gs1-parser",
   "main": "./dist/index.js",
@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsup src/index.ts --dts --format esm,cjs --clean --minify",
     "test": "vitest"
   },
   "keywords": [
@@ -23,6 +23,7 @@
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "jiti": "^2.6.1",
+    "tsup": "^8.5.1",
     "typescript": "~5.9.3",
     "typescript-eslint": "~8.46.4",
     "vite": "^7.2.2",
