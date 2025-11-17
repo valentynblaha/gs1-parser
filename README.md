@@ -241,7 +241,7 @@ This modernized version includes:
 
 ## License
 
-Copyright (c) 2014-2015 Peter Brockfeld (original version)  
-Copyright (c) 2025 Valentyn Blaha (This version)
+Copyright © 2014-2015 Peter Brockfeld (original version)  
+Copyright © 2025 Valentyn Blaha (This version)
 
 See the LICENSE.md file for license rights and limitations (MIT).
