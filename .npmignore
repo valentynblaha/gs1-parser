@@ -6,6 +6,8 @@ eslint.config.ts
 tsconfig.json
 vitest.config.ts
 index.html
+
 .vscode
 .gitignore
 .gitattributes
+.github

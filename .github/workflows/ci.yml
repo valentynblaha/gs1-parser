@@ -27,5 +27,4 @@ jobs:
       - run: npm run build
 
       - name: Verify npm packaging (dry run)
-        run: npm publish --dry-run
-        
+        run: npm pack --dry-run
