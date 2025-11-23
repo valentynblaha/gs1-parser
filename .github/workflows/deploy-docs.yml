@@ -4,9 +4,8 @@ on:
   push:
     branches:
       - main
-  # TO BE:
-  # tags:
-  #   - 'v*.*.*'
+    tags:
+      - 'v*.*.*'
 
 permissions:
   contents: read
