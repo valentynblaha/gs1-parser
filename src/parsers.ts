@@ -7,7 +7,7 @@ import {
   InternalError,
   InvalidAiError,
   NUMERIC_REGEX,
-  ParsedElementClass
+  ParsedElementClass,
 } from "./utils";
 
 /**
@@ -20,7 +20,7 @@ import {
 export function parseFloatingPoint(
   stringToParse: string,
   numberOfFractionals: number,
-  negative: boolean = false
+  negative: boolean = false,
 ): number {
   const offset = stringToParse.length - numberOfFractionals;
   const auxString =
@@ -41,10 +41,16 @@ export function parseFloatingPoint(
  * @param {String} codeString the codeString to parse the date from
  * @param {Boolean} utc  whether to parse the date as UTC or local time
  */
-export function parseDate(ai: string, title: string, codeString: string, utc: boolean, fncChar: string): ParseResult<Date> {
+export function parseDate(
+  ai: string,
+  title: string,
+  codeString: string,
+  utc: boolean,
+  fncChar: string,
+): ParseResult<Date> {
   let elementToReturn = new ParsedElementClass<Date>(ai, title, ElementType.Date);
   const offSet = ai.length;
-  let dataString: string = '';
+  let dataString: string = "";
   try {
     const dateYYMMDD = codeString.slice(offSet, offSet + 6);
     const posOfFNC = fncChar ? codeString.indexOf(fncChar, offSet) : offSet + 6;
@@ -64,7 +70,7 @@ export function parseDate(ai: string, title: string, codeString: string, utc: bo
       throw new BarcodeError(
         BarcodeErrorCodes.FixedLengthDataTooShort,
         "37",
-        `Data length ${dateYYMMDD.length} is less than expected length 6 for AI "${ai}".`
+        `Data length ${dateYYMMDD.length} is less than expected length 6 for AI "${ai}".`,
       );
     }
 
@@ -72,7 +78,7 @@ export function parseDate(ai: string, title: string, codeString: string, utc: bo
       throw new BarcodeError(
         BarcodeErrorCodes.NumericDataExpected,
         "39",
-        `Numeric data expected for AI "${ai}", but got "${dateYYMMDD}".`
+        `Numeric data expected for AI "${ai}", but got "${dateYYMMDD}".`,
       );
     }
 
@@ -116,7 +122,7 @@ export function parseDate(ai: string, title: string, codeString: string, utc: bo
       throw new BarcodeError(
         BarcodeErrorCodes.InvalidDate,
         "36",
-        `Invalid date "${dateYYMMDD}" for AI "${ai}".`
+        `Invalid date "${dateYYMMDD}" for AI "${ai}".`,
       );
     }
 
@@ -146,7 +152,13 @@ export function parseDate(ai: string, title: string, codeString: string, utc: bo
  * @param {String} codeString the codestring to parse the date from
  * @param {Boolean} utc  whether to parse the date as UTC or local time
  */
-export function parseDatetime(ai: string, title: string, codeString: string, utc: boolean, fncChar: string): ParseResult<Date> {
+export function parseDatetime(
+  ai: string,
+  title: string,
+  codeString: string,
+  utc: boolean,
+  fncChar: string,
+): ParseResult<Date> {
   let elementToReturn = new ParsedElementClass<Date>(ai, title, ElementType.Date);
   const offSet = ai.length;
   const posOfFNC = codeString.indexOf(fncChar);
@@ -161,7 +173,7 @@ export function parseDatetime(ai: string, title: string, codeString: string, utc
       throw new BarcodeError(
         BarcodeErrorCodes.FixedLengthDataTooShort,
         "37",
-        `Data length ${dateYYMMDD.length} is not of expected length 10 for AI "${ai}".`
+        `Data length ${dateYYMMDD.length} is not of expected length 10 for AI "${ai}".`,
       );
     }
 
@@ -169,7 +181,7 @@ export function parseDatetime(ai: string, title: string, codeString: string, utc
       throw new BarcodeError(
         BarcodeErrorCodes.NumericDataExpected,
         "39",
-        `Numeric data expected for AI "${ai}", but got "${dateYYMMDD}".`
+        `Numeric data expected for AI "${ai}", but got "${dateYYMMDD}".`,
       );
     }
 
@@ -233,7 +245,7 @@ export function parseDatetime(ai: string, title: string, codeString: string, utc
       throw new BarcodeError(
         BarcodeErrorCodes.InvalidDate,
         "36",
-        `Invalid date "${dateYYMMDD}" for AI "${ai}".`
+        `Invalid date "${dateYYMMDD}" for AI "${ai}".`,
       );
     }
 
@@ -262,9 +274,13 @@ export function parseFixedLength(
   title: string,
   length: number,
   codestring: string,
-  numeric: boolean = false
+  numeric: boolean = false,
 ): ParseResult<string> {
-  let elementToReturn: ParsedElementClass<string> = new ParsedElementClass<string>(ai, title, ElementType.String);
+  let elementToReturn: ParsedElementClass<string> = new ParsedElementClass<string>(
+    ai,
+    title,
+    ElementType.String,
+  );
   const offSet = ai.length;
   const dataString = codestring.slice(offSet, length + offSet);
   try {
@@ -272,7 +288,7 @@ export function parseFixedLength(
       throw new BarcodeError(
         BarcodeErrorCodes.FixedLengthDataTooShort,
         "37",
-        `Data length ${dataString.length} is less than expected length ${length} for AI "${ai}".`
+        `Data length ${dataString.length} is less than expected length ${length} for AI "${ai}".`,
       );
     }
 
@@ -280,7 +296,7 @@ export function parseFixedLength(
       throw new BarcodeError(
         BarcodeErrorCodes.NumericDataExpected,
         "39",
-        `Numeric data expected for AI "${ai}", but got "${dataString}".`
+        `Numeric data expected for AI "${ai}", but got "${dataString}".`,
       );
     }
     elementToReturn.data = dataString;
@@ -309,9 +325,13 @@ export function parseVariableLength(
   codestring: string,
   fncChar: string,
   maxLength?: number,
-  numeric: boolean = false
+  numeric: boolean = false,
 ): ParseResult<string> {
-  let elementToReturn: ParsedElementClass<string> = new ParsedElementClass<string>(ai, title, ElementType.String);
+  let elementToReturn: ParsedElementClass<string> = new ParsedElementClass<string>(
+    ai,
+    title,
+    ElementType.String,
+  );
   const offSet = ai.length;
   const posOfFNC = codestring.indexOf(fncChar);
   let codestringToReturn = "";
@@ -334,7 +354,7 @@ export function parseVariableLength(
       throw new BarcodeError(
         BarcodeErrorCodes.EmptyVariableLengthData,
         "38",
-        `Variable length data for AI "${ai}" is empty.`
+        `Variable length data for AI "${ai}" is empty.`,
       );
     }
 
@@ -342,12 +362,59 @@ export function parseVariableLength(
       throw new BarcodeError(
         BarcodeErrorCodes.NumericDataExpected,
         "39",
-        `Numeric data expected for AI "${ai}", but got "${dataString}".`
+        `Numeric data expected for AI "${ai}", but got "${dataString}".`,
       );
     }
     elementToReturn.data = dataString;
   } catch (error) {
     elementToReturn = new ParsedElementClass<string>(ai, title, ElementType.Error, error as Error);
+  }
+  elementToReturn.dataString = dataString;
+
+  return { element: elementToReturn, codestring: codestringToReturn };
+}
+
+/**
+ * Tries to parse an element as boolean
+ * @param {String} ai    the AI to use
+ * @param {String} title its title, i.e. its short description
+ * @param {String} codestring the codestring to parse from
+ * @param {String} fncChar the FNC-character to use as terminator
+ */
+export function parseBoolean(
+  ai: string,
+  title: string,
+  codestring: string,
+  fncChar: string,
+): ParseResult<boolean> {
+  let elementToReturn: ParsedElementClass<boolean> = new ParsedElementClass<boolean>(
+    ai,
+    title,
+    ElementType.Boolean,
+  );
+  const offSet = ai.length;
+  const posOfFNC = codestring.indexOf(fncChar);
+  let codestringToReturn = "";
+  let dataString = "";
+  try {
+    if (posOfFNC === -1) {
+      //we've got the last element of the barcode
+      dataString = codestring.slice(offSet, codestring.length);
+    } else {
+      dataString = codestring.slice(offSet, posOfFNC);
+      codestringToReturn = codestring.slice(posOfFNC + 1, codestring.length);
+    }
+    if (dataString === "") {
+      throw new BarcodeError(
+        BarcodeErrorCodes.EmptyVariableLengthData,
+        "38",
+        `Variable length data for AI "${ai}" is empty.`,
+      );
+    }
+
+    elementToReturn.data = Array.from(dataString)[0] === "1";
+  } catch (error) {
+    elementToReturn = new ParsedElementClass<boolean>(ai, title, ElementType.Error, error as Error);
   }
   elementToReturn.dataString = dataString;
 
@@ -368,7 +435,7 @@ export function parseVariableLengthMeasure(
   title: string,
   unit: string,
   codestring: string,
-  fncChar: string
+  fncChar: string,
 ): ParseResult<number> {
   // the place of the decimal fraction is given by the fourth number, that's
   // the first after the identifier itself.
@@ -415,12 +482,12 @@ export function parseFixedLengthMeasure(
   fourthNumber: string,
   title: string,
   unit: string,
-  codestring: string
+  codestring: string,
 ): ParseResult<number> {
   const ai = ai_stem + fourthNumber;
   let elementToReturn = new ParsedElementClass<number>(ai, title, ElementType.Number);
-  let codestringToReturn = '';
-  let dataString = '';
+  let codestringToReturn = "";
+  let dataString = "";
 
   try {
     const offset = ai_stem.length + 1;
@@ -436,7 +503,7 @@ export function parseFixedLengthMeasure(
       throw new BarcodeError(
         BarcodeErrorCodes.NumericDataExpected,
         "39",
-        `Numeric data expected for AI "${ai}", but got "${dataString}".`
+        `Numeric data expected for AI "${ai}", but got "${dataString}".`,
       );
     }
 
@@ -468,7 +535,7 @@ export function parseTemperature(
   title: string,
   unit: string,
   codestring: string,
-  fncChar: string
+  fncChar: string,
 ): ParseResult<number> {
   let elementToReturn = new ParsedElementClass<number>(ai, title, ElementType.Number);
   const offset = ai.length;
@@ -479,7 +546,7 @@ export function parseTemperature(
       throw new BarcodeError(
         BarcodeErrorCodes.FixedLengthDataTooShort,
         "40",
-        `Data length ${codestring.length - offset} is less than expected length 6 for AI "${ai}".`
+        `Data length ${codestring.length - offset} is less than expected length 6 for AI "${ai}".`,
       );
     }
 
@@ -491,7 +558,7 @@ export function parseTemperature(
       throw new BarcodeError(
         BarcodeErrorCodes.FixedLengthDataTooShort,
         "40",
-        `Data length ${nextAi - ai.length} is less than expected length 6 for AI "${ai}".`
+        `Data length ${nextAi - ai.length} is less than expected length 6 for AI "${ai}".`,
       );
     }
     dataString = codestring.slice(offset, offset + 6);
@@ -500,7 +567,7 @@ export function parseTemperature(
       throw new BarcodeError(
         BarcodeErrorCodes.NumericDataExpected,
         "39",
-        `Numeric data expected for AI "${ai}", but got "${dataString}".`
+        `Numeric data expected for AI "${ai}", but got "${dataString}".`,
       );
     }
     const idNegative = ["-", "\u2013", "—"].includes(codestring.slice(offset + 6, offset + 7));
@@ -533,7 +600,7 @@ export function parseVariableLengthWithISONumbers(
   fourthNumber: string,
   title: string,
   codestring: string,
-  fncChar: string
+  fncChar: string,
 ): ParseResult<number> {
   // an element of variable length, representing a number, followed by
   // some ISO-code.
@@ -578,7 +645,7 @@ export function parseVariableLengthWithISOChars(
   ai: string,
   title: string,
   codestring: string,
-  fncChar: string
+  fncChar: string,
 ): ParseResult<string> {
   // an element of variable length, representing a sequence of chars, followed by
   // some ISO-code.

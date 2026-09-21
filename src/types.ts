@@ -1,6 +1,6 @@
 import type { ElementType } from "./utils";
 
-export type GS1DecodedData = string | number | Date;
+export type GS1DecodedData = string | number | Date | boolean | null;
 
 export interface ParsedElement<T> {
   ai: string;
@@ -8,7 +8,7 @@ export interface ParsedElement<T> {
   data: T | null;
   dataString: string;
   unit: string;
-  type: ElementType
+  type: ElementType;
 }
 
 export interface ParseResult<T> {

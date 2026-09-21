@@ -1,6 +1,6 @@
 {
   "name": "@valentynb/gs1-parser",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A TypeScript GS1 barcode parser for logistics and supply chain applications.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

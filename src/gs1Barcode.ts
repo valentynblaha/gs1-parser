@@ -43,6 +43,10 @@ class GS1Parser {
 
     return new DecodeResult(parsed.isValid, parsed.codeName, parsed.denormalized, filteredItems);
   }
+
+  setOptions(options: Partial<ParserOptions>) {
+    this.options = { ...this.options, ...options };
+  }
 }
 
 export { GS1Parser };

@@ -10,6 +10,7 @@
 
 
 A modern TypeScript library for parsing GS1 barcodes, supporting both ESModule and CommonJS formats.
+Works on both client (browser) and server (Node) applications.
 
 #### Based on work from: https://github.com/PeterBrockfeld/BarcodeParser
 

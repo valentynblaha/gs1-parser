@@ -2,6 +2,17 @@
 
 All changes to this project are documented in this file.
 
+## v2.2.0
+
+### Added
+
+- Boolean parsing for AIs 4321 (DANGEROUS GOODS), 4322 (AUTH LEAVE) and 4323 (SIG REQUIRED)
+- `setOptions()` method on `GS1Parser` to update parser options after construction
+
+### Fixed
+
+- Elements of type `ElementType.Boolean` were not assigned their correct `type`
+
 ## v2.1.0
 
 ### Added

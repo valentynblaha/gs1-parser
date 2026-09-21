@@ -6,6 +6,7 @@
  */
 
 import {
+  parseBoolean,
   parseDate,
   parseDatetime,
   parseFixedLength,
@@ -598,17 +599,14 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
                   // Service code description
                   return parseVariableLength("4320", "SRV DESCRIPTION", codestring, fncChar, 35);
                 case "1":
-                  // TODO: parse as a boolean
                   // Dangerous goods flag
-                  return parseVariableLength("4321", "DANGEROUS GOODS", codestring, fncChar, 1);
+                  return parseBoolean("4321", "DANGEROUS GOODS", codestring, fncChar);
                 case "2":
-                  // TODO: parse as a boolean
                   // Authority to leave flag
-                  return parseVariableLength("4322", "AUTH LEAVE", codestring, fncChar, 1);
+                  return parseBoolean("4322", "AUTH LEAVE", codestring, fncChar);
                 case "3":
-                  // TODO: parse as a boolean
                   // Signature required flag
-                  return parseVariableLength("4323", "SIG REQUIRED", codestring, fncChar, 1);
+                  return parseBoolean("4323", "SIG REQUIRED", codestring, fncChar);
                 case "4":
                   // Not before delivery date/time
                   return parseDatetime(

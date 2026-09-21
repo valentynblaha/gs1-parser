@@ -78,25 +78,28 @@ describe("GS1 AIs 4300-4333 Parsing", () => {
       expect(result.data[GS1Field.SRV_DESCRIPTION]!.data).toBe("EXPRESS DELIVERY");
     });
 
-    it("should parse AI 4321 (DANGEROUS GOODS)", () => {
-      const barcode = VALID_GTIN + "4321Y";
+    it("should parse AI 4321 (DANGEROUS GOODS) as a boolean", () => {
+      const barcode = VALID_GTIN + "4321" + "1";
       const result = parser.decode(barcode);
       expect(result.data[GS1Field.DANGEROUS_GOODS]).toBeDefined();
-      expect(result.data[GS1Field.DANGEROUS_GOODS]!.data).toBe("Y");
+      expect(result.data[GS1Field.DANGEROUS_GOODS]!.type).toBe(ElementType.Boolean);
+      expect(result.data[GS1Field.DANGEROUS_GOODS]!.data).toBe(true);
     });
 
-    it("should parse AI 4322 (AUTH LEAVE)", () => {
-      const barcode = VALID_GTIN + "4322N";
+    it("should parse AI 4322 (AUTH LEAVE) as a boolean", () => {
+      const barcode = VALID_GTIN + "4322" + "0";
       const result = parser.decode(barcode);
       expect(result.data[GS1Field.AUTH_LEAVE]).toBeDefined();
-      expect(result.data[GS1Field.AUTH_LEAVE]!.data).toBe("N");
+      expect(result.data[GS1Field.AUTH_LEAVE]!.type).toBe(ElementType.Boolean);
+      expect(result.data[GS1Field.AUTH_LEAVE]!.data).toBe(false);
     });
 
-    it("should parse AI 4323 (SIG REQUIRED)", () => {
-      const barcode = VALID_GTIN + "4323Y";
+    it("should parse AI 4323 (SIG REQUIRED) as a boolean", () => {
+      const barcode = VALID_GTIN + "4323" + "1";
       const result = parser.decode(barcode);
       expect(result.data[GS1Field.SIG_REQUIRED]).toBeDefined();
-      expect(result.data[GS1Field.SIG_REQUIRED]!.data).toBe("Y");
+      expect(result.data[GS1Field.SIG_REQUIRED]!.type).toBe(ElementType.Boolean);
+      expect(result.data[GS1Field.SIG_REQUIRED]!.data).toBe(true);
     });
 
     it("should parse AI 4324 (NBEF DEL DT)", () => {

@@ -9,6 +9,7 @@ export enum ElementType {
   String = "string",
   Number = "number",
   Date = "date",
+  Boolean = "boolean",
   Error = "error",
   UNDEFINED = "",
 }
@@ -104,6 +105,10 @@ export class ParsedElementClass<T> implements ParsedElement<T> {
       case ElementType.Date:
         this.data = new Date() as T;
         this.type = ElementType.Date;
+        break;
+      case ElementType.Boolean:
+        this.data = false as T;
+        this.type = ElementType.Boolean;
         break;
       case ElementType.Error:
         this.data = null as T;
