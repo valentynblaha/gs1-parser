@@ -44,6 +44,10 @@ class GS1Parser {
     return new DecodeResult(parsed.isValid, parsed.codeName, parsed.denormalized, filteredItems);
   }
 
+  /**
+   * Updates the parser's options
+   * @param options Options to update
+   */
   setOptions(options: Partial<ParserOptions>) {
     this.options = { ...this.options, ...options };
   }
