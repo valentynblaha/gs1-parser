@@ -19,7 +19,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-      
+
     runs-on: ubuntu-latest
 
     steps:
@@ -28,16 +28,16 @@ jobs:
         with:
           fetch-depth: 0 # required to access tags
 
-      - name: Setup Node
-        uses: actions/setup-node@v7
+      - uses: pnpm/setup@v3
         with:
-          node-version: 24
+          runtime: node@24
+          cache: true
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm ci
 
       - name: Build docs
-        run: npm run docs
+        run: pnpm run docs
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -45,7 +45,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './docs'
+          path: "./docs"
 
       - name: Deploy to GitHub Pages
         id: deployment

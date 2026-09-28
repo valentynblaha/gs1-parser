@@ -56,8 +56,8 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
   // digits, some have 3, some even 4.
   const firstNumber = codestring.slice(0, 1);
   const secondNumber = codestring.slice(1, 2);
-  let thirdNumber = "";
-  let fourthNumber = "";
+  let thirdNumber;
+  let fourthNumber;
 
   /**
    *
@@ -1064,7 +1064,7 @@ function parseBarcode(barcode: string, parserOptions: ParserOptions): BarcodeAns
     denormalized: "",
     parsedCodeItems: [],
   }; // the object to return
-  let restOfBarcode = ""; // the rest of the barcode, when first
+  let restOfBarcode; // the rest of the barcode, when first
   // elements are spliced away
   const symbologyIdentifier = barcode.slice(0, 3);
   let currentElement: ParseResult<GS1DecodedData>;
