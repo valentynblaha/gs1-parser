@@ -15,16 +15,17 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v7
+      - uses: pnpm/setup@v3
         with:
-          node-version: 24
-          registry-url: https://registry.npmjs.org/
+          version: 12
+          runtime: node@24
+          cache: true
 
-      - run: npm ci
+      - run: pnpm ci
 
-      - run: npm test
+      - run: pnpm test
 
-      - run: npm run build
+      - run: pnpm run build
 
       - name: Verify npm packaging (dry run)
-        run: npm pack --dry-run
+        run: pnpm pack --dry-run
