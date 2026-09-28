@@ -162,7 +162,7 @@ export function parseDatetime(
   let elementToReturn = new ParsedElementClass<Date>(ai, title, ElementType.Date);
   const offSet = ai.length;
   const posOfFNC = codeString.indexOf(fncChar);
-  let dateYYMMDD = "";
+  let dateYYMMDD;
   if (posOfFNC === -1) {
     dateYYMMDD = codeString.slice(offSet, codeString.length);
   } else {
