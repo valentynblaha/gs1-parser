@@ -69,7 +69,7 @@ export class ParsedElementClass<T> implements ParsedElement<T> {
   dataTitle: string;
   data: T;
   dataString: string;
-  unit: string;
+  unit: string = ""; // TODO: make unit undefined if not applicable, but this would require changing the ParsedElement interface to make unit optional
   readonly type: ElementType = ElementType.UNDEFINED;
 
   /**

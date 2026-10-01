@@ -1,19 +1,22 @@
 import { AIDefinitions } from "./aiDefinitions";
-import type { ParserOptions } from "./types";
+import type { BarcodeToken, ParserOptions } from "./types";
 import { GROUP_SEPARATOR } from "./utils";
 
-/**
- * Represents a single token from the barcode
- */
-export interface BarcodeToken {
-  /** The AI (Application Identifier) code */
-  ai: string;
-  /** The raw data value for this AI */
-  value: string;
-  /** Whether this AI has a fixed length or is variable */
-  isFixed: boolean;
-  /** The definition of this AI from AIDefinitions */
-  definition: (typeof AIDefinitions)[string];
+export enum TokenizationError {
+  /**
+   * Indicates that an invalid AI was encountered during parsing
+   * This could be due to an unrecognized AI code or a malformed barcode string.
+   */
+  UnknownAI = "unknownAI",
+  /**
+   * Indicates that the barcode string ended unexpectedly while parsing an AI's value
+   * This could happen if the barcode is truncated or missing expected data.
+   */
+  UnexpectedEnd = "unexpectedEnd",
+  /** Indicates that a fixed-length AI's value did not match the expected length */
+  InvalidLength = "invalidLength",
+  /** Indicates that a variable-length AI's value was empty when it should not be */
+  EmptyValue = "emptyValue",
 }
 
 /**
@@ -41,13 +44,16 @@ export function tokenizeBarcode(barcode: string, options: ParserOptions = {}): B
   let position = 0;
 
   while (position < barcode.length) {
-    const token = extractNextToken(barcode, position, fncChar);
+    const token = extractNextToken(barcode, position, fncChar, options);
 
     if (!token) {
-      throw new Error(
-        `Failed to identify valid AI at position ${position}. ` +
-          `Remaining barcode: "${barcode.slice(position)}"`,
-      );
+      if (options.throwOnTokenizationError) {
+        throw new Error(
+          `Failed to identify valid AI at position ${position}. ` +
+            `Remaining barcode: "${barcode.slice(position)}"`,
+        );
+      }
+      break;
     }
 
     tokens.push(token);
@@ -63,23 +69,48 @@ export function tokenizeBarcode(barcode: string, options: ParserOptions = {}): B
  * @param barcode - The complete barcode string
  * @param position - The current position to start looking for an AI
  * @param fncChar - The FNC1 field separator character
+ * @param parserOptions - Options for the parser
  * @returns A BarcodeToken with the next position to continue parsing, or null if no valid AI found
  */
 function extractNextToken(
   barcode: string,
   position: number,
   fncChar: string,
+  parserOptions: ParserOptions = {},
 ): (BarcodeToken & { nextPosition: number }) | null {
   // Try to match AIs of lengths 2, 3, and 4 (in that order, as per GS1 spec)
   // Shorter AIs have priority
+  let ais = new Set(Object.keys(AIDefinitions));
+  const errors: string[] = [];
   for (let aiLength = 2; aiLength <= 4; aiLength++) {
     if (position + aiLength > barcode.length) {
       continue;
     }
 
     const potentialAI = barcode.slice(position, position + aiLength);
+    ais = new Set([...ais].filter(ai => ai.startsWith(potentialAI)));
 
-    if (potentialAI in AIDefinitions) {
+    if (ais.size === 0) {
+      if (parserOptions.throwOnTokenizationError) {
+        throw new Error(
+          `Unknown AI at position ${position}. ` + `Remaining barcode: "${barcode.slice(position)}"`,
+        );
+      } else {
+        errors.push(`Unknown AI at position ${position}: "${potentialAI}"`);
+        const { value, endPosition } = extractValue(barcode, position + aiLength, undefined, fncChar);
+
+        return {
+          ai: potentialAI,
+          value,
+          isFixed: false,
+          definition: null,
+          nextPosition: endPosition,
+          errors,
+        };
+      }
+    }
+
+    if (ais.has(potentialAI)) {
       const definition = AIDefinitions[potentialAI];
       const valueStart = position + aiLength;
 
@@ -92,6 +123,7 @@ function extractNextToken(
         isFixed: definition.fixedLength !== undefined,
         definition,
         nextPosition: endPosition,
+        errors,
       };
     }
   }
@@ -195,6 +227,15 @@ export function validateTokens(tokens: BarcodeToken[]): {
   const errors: Array<{ ai: string; error: string }> = [];
 
   for (const token of tokens) {
+    if (!token.definition) {
+      errors.push(
+        ...(token.errors?.map(err => ({ ai: token.ai, error: err })) || [
+          { ai: token.ai, error: "Unknown AI" },
+        ]),
+      );
+      continue;
+    }
+
     // Check fixed length compliance
     if (token.isFixed && token.definition.fixedLength !== undefined) {
       if (token.value.length !== token.definition.fixedLength) {

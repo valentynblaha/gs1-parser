@@ -1,14 +1,31 @@
+import type { AIDefinitions } from "./aiDefinitions";
 import type { ElementType } from "./utils";
 
 export type GS1DecodedData = string | number | Date;
 export interface ParserParams {
-  codestring: string;
+  rawValue: string;
   ai: string;
   definition: AIDefinition;
   options: ParserOptions;
 }
 
-export type ParserFunction<T> = (params: ParserParams) => ParseResult<T>;
+/**
+ * Represents a single token from the barcode
+ */
+export interface BarcodeToken {
+  /** The AI (Application Identifier) code */
+  ai: string;
+  /** The raw data value for this AI */
+  value: string;
+  /** Whether this AI has a fixed length or is variable */
+  isFixed: boolean;
+  /** The definition of this AI from AIDefinitions */
+  definition: (typeof AIDefinitions)[string] | null; // TODO: check type
+  /** The position in the barcode string where the next token starts */
+  errors?: string[]; // Optional array of tokenization errors for this token
+}
+
+export type ParserFunction<T> = (params: ParserParams) => ParsedElement<T>;
 export interface AIDefinition {
   propertyName: string;
   title: string;
@@ -18,6 +35,7 @@ export interface AIDefinition {
   serial?: number[];
   fixedLength?: number;
   parser: ParserFunction<GS1DecodedData>;
+  unit?: string; // Optional unit for the AI, e.g., "°C", "kg", etc.
 }
 
 export interface ParsedElement<T> {
@@ -27,11 +45,7 @@ export interface ParsedElement<T> {
   dataString: string;
   unit: string;
   type: ElementType;
-}
-
-export interface ParseResult<T> {
-  element: ParsedElement<T>;
-  codestring: string;
+  errors?: string[];
 }
 
 export interface BarcodeAnswer {
@@ -60,4 +74,11 @@ export interface ParserOptions {
    * If true, date fields are returned as UTC timestamps instead of local dates
    */
   utcTimestamps?: boolean;
+
+  /**
+   * If true, the parser will throw an error when it encounters a tokenization error (e.g., unknown AI, unexpected end of barcode, etc.)
+   * If false, the parser will continue parsing and return the tokens it could parse, along with any errors encountered
+   * Default is false
+   */
+  throwOnTokenizationError?: boolean;
 }

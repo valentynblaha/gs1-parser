@@ -1,6 +1,6 @@
 import { tokenizeBarcode } from "./barcodeTokenizer";
 import type { BarcodeAnswer, ParserOptions } from "./types";
-import { BarcodeError, BarcodeErrorCodes, InternalError } from "./utils";
+import { BarcodeError, BarcodeErrorCodes, ElementType, InternalError } from "./utils";
 
 /**
  * This is the main routine provided by the parseBarcode library. It takes a string,
@@ -18,7 +18,7 @@ function parseBarcode(barcode: string, parserOptions: ParserOptions): BarcodeAns
 
   const barcodelength = barcode.length;
   const answer: BarcodeAnswer = { codeName: "", denormalized: "", parsedCodeItems: [] }; // the object to return
-  let restOfBarcode = ""; // the rest of the barcode, when first
+  let restOfBarcode; // the rest of the barcode, when first
   // elements are spliced away
   const symbologyIdentifier = barcode.slice(0, 3);
 
@@ -54,14 +54,30 @@ function parseBarcode(barcode: string, parserOptions: ParserOptions): BarcodeAns
   try {
     const elements = tokenizeBarcode(restOfBarcode, parserOptions);
     for (const element of elements) {
+      if (!element.definition) {
+        const parseResult = {
+          element: {
+            ai: element.ai,
+            dataTitle: "",
+            data: element.value,
+            dataString: element.value,
+            unit: "",
+            type: ElementType.UNDEFINED,
+          },
+          codestring: element.value,
+        };
+        answer.parsedCodeItems.push(parseResult.element);
+        answer.denormalized += "(" + parseResult.element.ai + ")" + parseResult.element.dataString;
+        continue;
+      }
       const parsedElement = element.definition.parser({
-        codestring: element.value,
+        rawValue: element.value,
         ai: element.ai,
         definition: element.definition,
         options: parserOptions,
       });
-      answer.parsedCodeItems.push(parsedElement.element);
-      answer.denormalized += "(" + parsedElement.element.ai + ")" + parsedElement.element.dataString;
+      answer.parsedCodeItems.push(parsedElement);
+      answer.denormalized += "(" + parsedElement.ai + ")" + parsedElement.dataString;
     }
   } catch (e) {
     if (e instanceof InternalError) {

@@ -981,24 +981,28 @@ export const AIDefinitions: Record<string, AIDefinition> = {
     propertyName: "maxTempF",
     title: "MAX TEMP F",
     parser: parseTemperature,
+    unit:"°F"
   },
   // Maximum temperature in Celsius
   "4331": {
     propertyName: "maxTempC",
     title: "MAX TEMP C",
     parser: parseTemperature,
+    unit:"°C"
   },
   // Minimum temperature in Fahrenheit
   "4332": {
     propertyName: "minTempF",
     title: "MIN TEMP F",
     parser: parseTemperature,
+    unit:"°F"
   },
   // Minimum temperature in Celsius
   "4333": {
     propertyName: "minTempC",
     title: "MIN TEMP C",
     parser: parseTemperature,
+    unit:"°C"
   },
   // NATO Stock Number (NSN)
   "7001": {

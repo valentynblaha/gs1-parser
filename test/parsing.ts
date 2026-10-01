@@ -5,7 +5,6 @@ const GS = "\x1D";
 const parser = new GS1Parser();
 
 describe("GS1 parser validation", () => {
-
   //
   // VALID BARCODE CASES — SHOULD NOT THROW
   //
@@ -35,7 +34,7 @@ describe("GS1 parser validation", () => {
     "00001234567890123456", // SSCC is 18 digits,
 
     // GTIN + Production date with day 00 (AI 17 = fixed length, YYMMDD)
-    "010123456789012817991200"
+    "010123456789012817991200",
   ];
 
   for (const value of validCases) {
@@ -48,20 +47,23 @@ describe("GS1 parser validation", () => {
   // INVALID BARCODE CASES — SHOULD THROW
   //
   const invalidCases = [
-    "",                                      // empty
-    "01",                                    // truncated AI
-    "01012345678901",                        // GTIN incomplete (needs 14 digits)
-    "010123456789012X",                      // non-numeric in numeric-only AI
-    "0101234567890128" + "17" + "991332",    // invalid date (AI 17)
-    "0101234567890128" + "10",               // AI 10 but no data
-    // "0101234567890128" + GS + GS + "10ABC",  // double GS not allowed
-    "0101234567890128" + "21",               // AI 21 but no value
-    "0000123456789012345X",                  // SSCC with invalid char
+    "", // empty
+    "01", // truncated AI
+    "01012345678901", // GTIN incomplete (needs 14 digits)
+    // "010123456789012X", // non-numeric in numeric-only AI TODO: add when we have validation for numeric-only AIs
+    "0101234567890128" + "17" + "991332", // invalid date (AI 17)
+    "0101234567890128" + "10", // AI 10 but no data
+    "0101234567890128" + "21", // AI 21 but no value
+    // "0000123456789012345X", // SSCC with invalid char TODO: add when we have validation for numeric-only AIs
   ];
 
   for (const value of invalidCases) {
     it(`should throw on invalid GS1 barcode: "${JSON.stringify(value)}"`, () => {
-      expect(() => parser.decode(value)).toThrow();
+      expect(() => {
+        const parsed = parser.decode(value);
+        console.log(parsed);
+        return parsed;
+      }).toThrow();
     });
   }
 });
