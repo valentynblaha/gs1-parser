@@ -38,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/valentynblaha/gs1-parser/issues"
   },
-  "packageManager": "pnpm@12.9.1",
+  "packageManager": "pnpm@12.10.1",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.6.3",
