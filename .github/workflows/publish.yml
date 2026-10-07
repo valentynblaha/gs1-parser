@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   publish:
+    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
 
     steps:
@@ -23,11 +24,8 @@ jobs:
           runtime: node@24
           cache: true
 
-      - name: Update pnpm
-        run: pnpm self-update
-
       - name: Install dependencies
-        run: pnpm ci --no-frozen-lockfile
+        run: pnpm ci
 
       - name: Test
         run: pnpm test
