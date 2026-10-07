@@ -95,23 +95,23 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
           return parseVariableLength("10", "BATCH/LOT", codestring, fncChar, lotLen ?? 20);
         case "1":
           // Production Date (YYMMDD)
-          return parseDate("11", "PROD DATE", codestring, parserOptions.utcTimestamps, fncChar);
+          return parseDate("11", "PROD DATE", codestring, parserOptions.utcTimestamps);
         case "2":
           // Due Date (YYMMDD)
-          return parseDate("12", "DUE DATE", codestring, parserOptions.utcTimestamps, fncChar);
+          return parseDate("12", "DUE DATE", codestring, parserOptions.utcTimestamps);
         case "3":
           // Packaging Date (YYMMDD)
-          return parseDate("13", "PACK DATE", codestring, parserOptions.utcTimestamps, fncChar);
+          return parseDate("13", "PACK DATE", codestring, parserOptions.utcTimestamps);
         // AI "14" isn't defined
         case "5":
           // Best Before Date (YYMMDD)
-          return parseDate("15", "BEST BEFORE or BEST BY", codestring, parserOptions.utcTimestamps, fncChar);
+          return parseDate("15", "BEST BEFORE or BEST BY", codestring, parserOptions.utcTimestamps);
         case "6":
           // Sell By Date (YYMMDD)
-          return parseDate("16", "SELL BY", codestring, parserOptions.utcTimestamps, fncChar);
+          return parseDate("16", "SELL BY", codestring, parserOptions.utcTimestamps);
         case "7":
           // Expiration Date (YYMMDD)
-          return parseDate("17", "USE BY OR EXPIRY", codestring, parserOptions.utcTimestamps, fncChar);
+          return parseDate("17", "USE BY OR EXPIRY", codestring, parserOptions.utcTimestamps);
         default:
           throw new InvalidAiError("1", secondNumber);
       }
@@ -627,7 +627,7 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
                   );
                 case "6":
                   // Release date
-                  return parseDate("4326", "REL DATE", codestring, parserOptions.utcTimestamps, fncChar);
+                  return parseDate("4326", "REL DATE", codestring, parserOptions.utcTimestamps);
                 default:
                   throw new InvalidAiError("432", fourthNumber);
               }
@@ -686,8 +686,7 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
                     "7006",
                     "FIRST FREEZE DATE",
                     codestring,
-                    parserOptions.utcTimestamps,
-                    fncChar,
+                    parserOptions.utcTimestamps
                   );
                 case "7":
                   // Harvest date

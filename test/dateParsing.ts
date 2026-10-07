@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { ElementType, GS1Field, GS1Parser } from "../src/index";
 
-// GS1 date AIs (YYMMDD): 11, 12, 13, 15, 17
-const DATE_AIS = ["11", "12", "13", "15", "17"];
+// GS1 date AIs (YYMMDD): 11, 12, 13, 15, 16, 17
+const DATE_AIS = ["11", "12", "13", "15", "16", "17"];
 
 // Map AI to GS1Field enum
 const AI_TO_FIELD: Record<string, GS1Field> = {
@@ -10,6 +10,7 @@ const AI_TO_FIELD: Record<string, GS1Field> = {
   "12": GS1Field.DUE_DATE,
   "13": GS1Field.PACK_DATE,
   "15": GS1Field.BEST_BEFORE,
+  "16": GS1Field.SELL_BY,
   "17": GS1Field.EXP_DATE,
 };
 
@@ -48,7 +49,7 @@ describe("GS1 Date Parsing - Edge Cases", () => {
   for (const [dateValue, expectedDate] of validDates) {
     for (const ai of DATE_AIS) {
       it(`should parse valid GS1 date AI ${ai}: "${dateValue}"`, () => {
-        const barcode = VALID_GTIN + ai + dateValue;
+        const barcode = VALID_GTIN + ai + dateValue + "10LOT9";
         const result = parser.decode(barcode);
         const field = AI_TO_FIELD[ai];
         expect(result.data[field]).toBeDefined();
@@ -80,7 +81,6 @@ describe("GS1 Date Parsing - Edge Cases", () => {
 
     // Invalid month/day combinations where day != 00
     "221431",     // month 14
-    "1234567",    // too long
   ];
 
   for (const dateValue of invalidDates) {

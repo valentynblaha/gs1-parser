@@ -45,21 +45,14 @@ export function parseDate(
   ai: string,
   title: string,
   codeString: string,
-  utc: boolean,
-  fncChar: string,
+  utc: boolean
 ): ParseResult<Date> {
   let elementToReturn = new ParsedElementClass<Date>(ai, title, ElementType.Date);
   const offSet = ai.length;
   let dataString: string = "";
   try {
     const dateYYMMDD = codeString.slice(offSet, offSet + 6);
-    const posOfFNC = fncChar ? codeString.indexOf(fncChar, offSet) : offSet + 6;
-    if (posOfFNC == -1) {
-      dataString = codeString.slice(offSet);
-    } else {
-      dataString = codeString.slice(offSet, posOfFNC);
-    }
-
+    dataString = dateYYMMDD;
     if (utc) {
       elementToReturn.data.setUTCHours(0, 0, 0, 0);
     } else {
