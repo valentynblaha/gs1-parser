@@ -2,6 +2,12 @@
 
 All changes to this project are documented in this file.
 
+## v2.2.1
+
+### Fixed
+
+- Date being parsed with variable length and swallowing the following elements until a FNC1 character is met
+
 ## v2.2.0
 
 ### Added
