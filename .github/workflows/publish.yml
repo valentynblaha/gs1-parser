@@ -24,7 +24,7 @@ jobs:
           cache: true
 
       - name: Update pnpm
-        run: pnpm install -g pnpm@latest
+        run: pnpm self-update
 
       - name: Install dependencies
         run: pnpm ci
