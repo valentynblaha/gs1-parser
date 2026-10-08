@@ -8,7 +8,6 @@
 [![Deploy Docs](https://github.com/valentynblaha/gs1-parser/actions/workflows/deploy-docs.yml/badge.svg)](https://github.com/valentynblaha/gs1-parser/actions/workflows/deploy-docs.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
-
 A modern TypeScript library for parsing GS1 barcodes, supporting both ESModule and CommonJS formats.
 Works on both client (browser) and server (Node) applications.
 
@@ -16,24 +15,24 @@ Works on both client (browser) and server (Node) applications.
 
 ## Table of Contents
 
-* [Purpose](#purpose)
-* [Installation](#installation)
-* [Disclaimer](#disclaimer)
-* [The Specification](#the-specification)
-* [About GS1 Barcodes](#about-gs1-barcodes)
-  * [About the Structure of GS1 Barcodes](#about-the-structure-of-gs1-barcodes)
-* [Use Case](#use-case)
-* [How to Use It](#how-to-use-it)
-  * [ESModule Usage](#esmodule-usage)
-  * [CommonJS Usage](#commonjs-usage)
-  * [TypeScript Usage](#typescript-usage)
-  * [Limitations](#limitations)
-* [API Reference](#api-reference)
-* [About Barcode Scanning Devices](#about-barcode-scanning-devices)
-  * [The FNC1 Character](#the-fnc1-character)
-  * [Key Press Detecting](#key-press-detecting)
-* [What's New](#whats-new)
-* [License](#license)
+- [Purpose](#purpose)
+- [Installation](#installation)
+- [Disclaimer](#disclaimer)
+- [The Specification](#the-specification)
+- [About GS1 Barcodes](#about-gs1-barcodes)
+  - [About the Structure of GS1 Barcodes](#about-the-structure-of-gs1-barcodes)
+- [Use Case](#use-case)
+- [How to Use It](#how-to-use-it)
+  - [ESModule Usage](#esmodule-usage)
+  - [CommonJS Usage](#commonjs-usage)
+  - [TypeScript Usage](#typescript-usage)
+  - [Limitations](#limitations)
+- [API Reference](#api-reference)
+- [About Barcode Scanning Devices](#about-barcode-scanning-devices)
+  - [The FNC1 Character](#the-fnc1-character)
+  - [Key Press Detecting](#key-press-detecting)
+- [What's New](#whats-new)
+- [License](#license)
 
 ## Purpose
 
@@ -43,9 +42,9 @@ The barcode parser contains functions for parsing GS1 barcodes, yielding individ
 
 The barcode parser is meant to be used in applications which:
 
-* Take data from a barcode scanning device or barcode reading application
-* Process the data
-* Perform actions based on the barcode contents
+- Take data from a barcode scanning device or barcode reading application
+- Process the data
+- Perform actions based on the barcode contents
 
 ## Installation
 
@@ -69,31 +68,33 @@ The full "GS1 General Specifications" can be found at [http://www.gs1.org/standa
 
 GS1 barcodes can contain comprehensive product information including:
 
-* GTIN (Global Trade Item Number, formerly UPC or EAN)
-* Weight or dimensions
-* Price
-* Lot/batch code
-* Manufacturing date
-* Expiration date
-* And much more
+- GTIN (Global Trade Item Number, formerly UPC or EAN)
+- Weight or dimensions
+- Price
+- Lot/batch code
+- Manufacturing date
+- Expiration date
+- And much more
 
 ### About the Structure of GS1 Barcodes
 
-A GS1 barcode is a concatenation of *data elements*. Each element starts with an *application identifier* (AI), a two to four digit number, followed by the actual information.
+A GS1 barcode is a concatenation of _data elements_. Each element starts with an _application identifier_ (AI), a two to four digit number, followed by the actual information.
 
-A *data element* is delimited by:
+A _data element_ is delimited by:
 
-* The end of the barcode
-* A fixed character count specification
-* A special FNC1 character
+- The end of the barcode
+- A fixed character count specification
+- A special FNC1 character
 
-The *application identifiers* and their properties are described in the third chapter of the GS1 General Specifications.
+The _application identifiers_ and their properties are described in the third chapter of the GS1 General Specifications.
 
-The GS1 barcode begins with a *symbology identifier* (a three-character sequence denoting the barcode type), followed by an arbitrary number of *data elements*. The parser decomposes this string into its individual elements.
+The GS1 barcode begins with a _symbology identifier_ (a three-character sequence denoting the barcode type), followed by an arbitrary number of _data elements_. The parser decomposes this string into its individual elements.
 
 ## Use Case
 
 Your application receives a GS1 barcode as a string from a scanning device:
+
+> The FNC1 character is not shown here
 
 ```
 ]C101040123456789011715012910ABC1233932978471131030005253922471142127649716
@@ -101,15 +102,15 @@ Your application receives a GS1 barcode as a string from a scanning device:
 
 The library extracts and parses the data into structured elements:
 
-| AI | Title | Contents | Unit/Currency |
-|:---|:------|:---------|:--------------|
-| 01 | GTIN | 04012345678901 | |
-| 17 | USE BY OR EXPIRY | 2015-01-29 | |
-| 10 | BATCH/LOT | ABC123 | |
-| 3932 | PRICE | 47.11 | 978 |
-| 3103 | NET WEIGHT (kg) | 0.525 | KGM |
-| 3922 | PRICE | 47.11 | |
-| 421 | SHIP TO POST | 49716 | 276 |
+| AI   | Title            | Contents       | Unit/Currency/ISO Code |
+| :--- | :--------------- | :------------- | :--------------------- |
+| 01   | GTIN             | 04012345678901 |                        |
+| 17   | USE BY OR EXPIRY | 2015-01-29     |                        |
+| 10   | BATCH/LOT        | ABC123         |                        |
+| 3932 | PRICE            | 47.11          | 978                    |
+| 3103 | NET WEIGHT (kg)  | 0.525          | KGM                    |
+| 3922 | PRICE            | 47.11          |                        |
+| 421  | SHIP TO POST     | 49716          | 276                    |
 
 ## How to Use It
 
@@ -132,7 +133,7 @@ try {
   const barcodeString = document.getElementById("barcode").value;
   // returns a DecodeResult object or throws an Error in case of parsing errors
   const result = gs1Parser.decode(barcodeString);
-  
+
   console.log(result.codeName); // e.g., "GS1-128"
   console.log(result.denormalized); // Full barcode with parentheses
   console.log(result.data); // Dictionary of parsed elements
@@ -144,7 +145,7 @@ try {
 ### CommonJS Usage
 
 ```javascript
-const { GS1Parser } = require('@valentynb/gs1-parser');
+const { GS1Parser } = require("@valentynb/gs1-parser");
 
 const gs1Parser = new GS1Parser();
 
@@ -152,7 +153,7 @@ try {
   const result = gs1Parser.decode(barcodeString);
   // Process result...
 } catch (error) {
-  console.error('Barcode parsing failed:', error);
+  console.error("Barcode parsing failed:", error);
 }
 ```
 
@@ -161,21 +162,21 @@ try {
 The library is written in TypeScript and includes full type definitions:
 
 ```typescript
-import { GS1Parser, DecodeResult, ParsedElement } from '@valentynb/gs1-parser';
+import { GS1Parser, DecodeResult, ParsedElement } from "@valentynb/gs1-parser";
 
 const gs1Parser = new GS1Parser();
 
 try {
   const result: DecodeResult = gs1Parser.decode(barcodeString);
-  
+
   result.data.values().forEach((item: ParsedElement) => {
     console.log(`AI: ${item.ai}`);
     console.log(`Title: ${item.dataTitle}`);
     console.log(`Data: ${item.data}`);
-    console.log(`Unit: ${item.unit || 'N/A'}`);
+    console.log(`Unit: ${item.unit || "N/A"}`);
   });
 } catch (error) {
-  console.error('Error:', error);
+  console.error("Error:", error);
 }
 ```
 
@@ -186,6 +187,7 @@ The `decode()` method does not perform plausibility checks (as of now). If the b
 ## API Reference
 
 Check out the documentation at:
+
 #### [valentynblaha.github.io/gs1-parser](https://valentynblaha.github.io/gs1-parser)
 
 ## About Barcode Scanning Devices
@@ -213,15 +215,15 @@ To determine what control sequence your scanner sends, create a simple test page
 
 This modernized version includes:
 
-* **TypeScript**: Full TypeScript rewrite with complete type definitions
-* **Dual Module Support**: Works with both ESModule (`import`) and CommonJS (`require`)
-* **Updated Specification**: Complies with 2025 GS1 General Specifications
-* **Reorganized Code**: Improved code structure and maintainability
-* **Modern Build System**: Compatible with current JavaScript tooling
+- **TypeScript**: Full TypeScript rewrite with complete type definitions
+- **Dual Module Support**: Works with both ESModule (`import`) and CommonJS (`require`)
+- **Updated Specification**: Complies with 2025 GS1 General Specifications
+- **Reorganized Code**: Improved code structure and maintainability
+- **Modern Build System**: Compatible with current JavaScript tooling
 
 ## License
 
 Copyright © 2014-2015 Peter Brockfeld (original version)  
 Copyright © 2025 Valentyn Blaha (This version)
 
-See the LICENSE.md file for license rights and limitations (MIT).
+See the LICENSE file for license rights and limitations (MIT).
