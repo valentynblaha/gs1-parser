@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+  # Rebuild after a release, so the new API version is listed
+  workflow_run:
+    workflows: [Create GitHub Release]
+    types:
+      - completed
 
 permissions:
   contents: read
@@ -16,6 +21,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name == 'push' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -37,7 +43,7 @@ jobs:
         run: pnpm ci
 
       - name: Build docs
-        run: pnpm run docs
+        run: pnpm run docs:build
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
@@ -45,7 +51,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: "./docs"
+          path: "./website/build"
 
       - name: Deploy to GitHub Pages
         id: deployment

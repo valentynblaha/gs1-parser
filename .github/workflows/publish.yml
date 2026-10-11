@@ -34,4 +34,4 @@ jobs:
         run: pnpm run build
 
       - name: Publish
-        run: pnpm publish --provenance
+        run: pnpm --filter @valentynb/gs1-parser publish --provenance

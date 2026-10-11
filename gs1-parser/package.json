@@ -1,0 +1,55 @@
+{
+  "name": "@valentynb/gs1-parser",
+  "version": "2.2.1",
+  "description": "A TypeScript GS1 barcode parser for logistics and supply chain applications.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsdown src/index.ts --dts --format esm,cjs --clean --minify --keep-names --no-fixed-extension",
+    "build:iife": "tsdown src/index.ts --format iife --global-name GS1Parser --minify",
+    "dev": "vite",
+    "test": "vitest",
+    "lint": "eslint src/**/*.ts",
+    "prepack": "node -e \"for (const f of ['README.md', 'LICENSE']) require('fs').copyFileSync('../' + f, f)\""
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "keywords": [
+    "gs1",
+    "barcode",
+    "parsing",
+    "logistics"
+  ],
+  "author": "Valentyn Blaha",
+  "license": "MIT",
+  "homepage": "https://valentynblaha.github.io/gs1-parser",
+  "repository": {
+    "url": "git+https://github.com/valentynblaha/gs1-parser.git",
+    "type": "git",
+    "directory": "gs1-parser"
+  },
+  "bugs": {
+    "url": "https://github.com/valentynblaha/gs1-parser/issues"
+  },
+  "packageManager": "pnpm@12.10.1",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.3",
+    "eslint": "^10.11.0",
+    "globals": "^17.12.0",
+    "jiti": "^2.7.0",
+    "tsdown": "0.23.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "~8.71.0",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  }
+}
