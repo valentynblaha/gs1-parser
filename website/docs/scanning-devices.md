@@ -14,7 +14,8 @@ GS1 DataMatrix and GS1 QR Code use the ASCII Group Separator (GS, ASCII 29, `0x1
 
 Since this character isn't on standard keyboards, scanners send a control sequence in its place. The canonical sequence is `Ctrl + ]`.
 
-:::warning Keyboard layout matters
+:::warning
+Keyboard layout matters
 
 A scanner emulating a German keyboard may send `Ctrl + +` instead of `Ctrl + ]`, which can trigger browser zoom. You'll need to:
 

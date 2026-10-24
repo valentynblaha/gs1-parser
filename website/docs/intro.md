@@ -21,9 +21,9 @@ The parser decomposes a GS1 barcode into its individual elements, in a format th
 
 ## The specification
 
-The full "GS1 General Specifications" can be found at [ref.gs1.org/standards/genspecs](https://ref.gs1.org/standards/genspecs/). This library complies with the **2025 version** of the specification.
+The full "GS1 General Specifications" can be found at [ref.gs1.org/standards/genspecs](https://ref.gs1.org/standards/genspecs/). This library complies with the **2026 version** of the specification.
 
-:::note Disclaimer
+:::note[Disclaimer]
 
 This library is an independent interpretation of the GS1 specification. It is neither endorsed, supported, approved, nor recommended by GS1, and there are no affiliations with GS1.
 
