@@ -1,10 +1,10 @@
-import {useRef, useState, type FormEvent, type ReactNode} from 'react';
-import clsx from 'clsx';
-import Layout from '@theme/Layout';
-import Heading from '@theme/Heading';
-import {GS1Parser, type DecodeResult} from '@valentynb/gs1-parser';
+import { useRef, useState, type FormEvent, type ReactNode } from "react";
+import clsx from "clsx";
+import Layout from "@theme/Layout";
+import Heading from "@theme/Heading";
+import { GS1Parser, type DecodeResult } from "@valentynb/gs1-parser";
 
-import styles from './demo.module.css';
+import styles from "./demo.module.css";
 
 const GS = String.fromCodePoint(29);
 
@@ -12,10 +12,10 @@ const parser = new GS1Parser({
   lotMaxLength: 20,
 });
 
-type Output = {result: DecodeResult} | {error: string};
+type Output = { result: DecodeResult } | { error: string };
 
 export default function Demo(): ReactNode {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [output, setOutput] = useState<Output | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -29,30 +29,30 @@ export default function Demo(): ReactNode {
     });
   }
 
-  function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const gs1Input = input.trim();
 
     if (!gs1Input) {
-      setOutput({error: 'Please enter a GS1 code'});
+      setOutput({ error: "Please enter a GS1 code" });
       return;
     }
 
     try {
       const result = parser.decode(gs1Input);
-      setOutput({result});
-      console.log('Decoded GS1 Data:', result);
+      setOutput({ result });
+      console.log("Decoded GS1 Data:", result);
     } catch (error) {
-      setOutput({error: (error as Error).message || 'Failed to parse GS1 code'});
-      console.error('Error decoding GS1 code:', error);
+      setOutput({ error: (error as Error).message || "Failed to parse GS1 code" });
+      console.error("Error decoding GS1 code:", error);
     }
   }
 
-  const entries = output && 'result' in output ? Object.entries(output.result.data) : null;
+  const entries = output && "result" in output ? Object.entries(output.result.data) : null;
 
   return (
     <Layout title="Demo" description="Parse and decode GS1 barcode data in your browser">
-      <main className={clsx('container', styles.container)}>
+      <main className={clsx("container", styles.container)}>
         <section className={styles.card}>
           <Heading as="h1">GS1 Code Parser</Heading>
           <p className={styles.subtitle}>Parse and decode GS1 barcode data with ease</p>
@@ -70,13 +70,14 @@ export default function Demo(): ReactNode {
                 placeholder="Paste or type your GS1 code here..."
                 autoComplete="off"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => setInput(e.target.value)}
               />
               <button
                 type="button"
                 className="button button--secondary"
                 title="Insert GS character (ASCII 29)"
-                onClick={insertGs}>
+                onClick={insertGs}
+              >
                 Insert GS
               </button>
             </div>
@@ -87,10 +88,10 @@ export default function Demo(): ReactNode {
           </form>
 
           {output && (
-            <div className={clsx(styles.output, 'error' in output && styles.error)}>
+            <div className={clsx(styles.output, "error" in output && styles.error)}>
               <div className={styles.outputLabel}>Denormalized Output</div>
               <div className={styles.outputContent}>
-                {'error' in output ? `Error: ${output.error}` : output.result.denormalized}
+                {"error" in output ? `Error: ${output.error}` : output.result.denormalized}
               </div>
             </div>
           )}

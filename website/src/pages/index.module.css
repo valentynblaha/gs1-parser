@@ -23,3 +23,18 @@
   flex-wrap: wrap;
   gap: 1rem;
 }
+
+/* Infima gives outlined secondary buttons the base font color, which is
+   dark on the blue hero in light mode; match the outline instead. */
+[data-theme='light']
+  .buttons
+  :global(.button.button--secondary.button--outline:not(.button--active):not(:hover)) {
+  color: var(--ifm-button-border-color);
+}
+
+/* In dark mode the primary color is a light blue, too bright for the hero;
+   use a deep logo blue with light text instead. */
+[data-theme='dark'] .heroBanner {
+  --ifm-hero-background-color: #2a418a;
+  --ifm-hero-text-color: #f5f7ff;
+}
