@@ -1,2 +1,8 @@
+packages:
+  - gs1-parser
+  - website
+
 allowBuilds:
   esbuild: true
+  "@swc/core": false
+  core-js: false

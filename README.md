@@ -125,7 +125,7 @@ const gs1Parser = new GS1Parser(
     lotMaxLength: 20
 
     // If not specified, the GS char is used
-    fncChar: String.fromCodePoint(29);
+    fncChar: String.fromCodePoint(29),
   }
 );
 
@@ -162,14 +162,14 @@ try {
 The library is written in TypeScript and includes full type definitions:
 
 ```typescript
-import { GS1Parser, DecodeResult, ParsedElement } from "@valentynb/gs1-parser";
+import { GS1Parser, DecodeResult } from "@valentynb/gs1-parser";
 
 const gs1Parser = new GS1Parser();
 
 try {
   const result: DecodeResult = gs1Parser.decode(barcodeString);
 
-  result.data.values().forEach((item: ParsedElement) => {
+  for (const item of Object.values(result.data)) {
     console.log(`AI: ${item.ai}`);
     console.log(`Title: ${item.dataTitle}`);
     console.log(`Data: ${item.data}`);

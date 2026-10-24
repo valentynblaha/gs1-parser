@@ -1,0 +1,34 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Palette derived from static/img/logo.svg (#3d5ec4 blue, #001066 navy). */
+:root {
+  --ifm-color-primary: #3d5ec4;
+  --ifm-color-primary-dark: #3654b1;
+  --ifm-color-primary-darker: #334fa8;
+  --ifm-color-primary-darkest: #2a418a;
+  --ifm-color-primary-light: #516eca;
+  --ifm-color-primary-lighter: #5b77cd;
+  --ifm-color-primary-lightest: #788fd6;
+  --ifm-heading-color: #d9e1fa;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(61, 94, 196, 0.12);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #7b97ec;
+  --ifm-color-primary-dark: #5c7ee7;
+  --ifm-color-primary-darker: #4c72e5;
+  --ifm-color-primary-darkest: #204edc;
+  --ifm-color-primary-light: #9ab0f1;
+  --ifm-color-primary-lighter: #aabcf3;
+  --ifm-color-primary-lightest: #d9e1fa;
+  --ifm-heading-color: inherit;
+  --ifm-background-color: #0b1230;
+  --ifm-background-surface-color: #111a3d;
+  --docusaurus-highlighted-code-line-bg: rgba(123, 151, 236, 0.18);
+}
