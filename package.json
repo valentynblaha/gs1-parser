@@ -10,5 +10,5 @@
     "docs": "pnpm --filter website start",
     "docs:build": "pnpm --filter website build"
   },
-  "packageManager": "pnpm@12.10.1"
+  "packageManager": "pnpm@12.14.0"
 }
