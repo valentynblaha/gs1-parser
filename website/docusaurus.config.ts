@@ -49,8 +49,8 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://valentynblaha.github.io',
-  baseUrl: '/gs1-parser/',
+  url: 'https://gs1-parser.com',
+  baseUrl: '/',
 
   organizationName: 'valentynblaha',
   projectName: 'gs1-parser',
