@@ -1,12 +1,20 @@
 # GS1 Barcode Parser
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/valentynblaha/gs1-parser/main/website/static/img/logo.svg" alt="GS1 Barcode Parser logo" width="120">
+</p>
+
+<div align="center">
+  
 [![NPM version](https://img.shields.io/npm/v/%40valentynb%2Fgs1-parser)](https://www.npmjs.com/package/@valentynb/gs1-parser)
 [![NPM downloads](https://img.shields.io/npm/dm/%40valentynb%2Fgs1-parser)](https://www.npmjs.com/package/@valentynb/gs1-parser)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/valentynblaha/gs1-parser/publish.yml)](https://github.com/valentynblaha/gs1-parser/actions)
 [![Types Included](https://img.shields.io/badge/types-TypeScript-blue.svg?style=flat-square)](#)
 [![Docs](https://img.shields.io/badge/docs-online-success)](https://valentynblaha.github.io/gs1-parser/)
-[![Deploy Docs](https://github.com/valentynblaha/gs1-parser/actions/workflows/deploy-docs.yml/badge.svg)](https://github.com/valentynblaha/gs1-parser/actions/workflows/deploy-docs.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cdc2f5e5-92db-4f54-8017-21cf07845820/deploy-status)](https://app.netlify.com/projects/gs1-parser/deploys)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+
+</div>
 
 A modern TypeScript library for parsing GS1 barcodes, supporting both ESModule and CommonJS formats.
 Works on both client (browser) and server (Node) applications.
