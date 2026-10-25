@@ -51,6 +51,6 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-          pnpm dlx netlify-cli deploy --prod --no-build --dir=website/build \
+          pnpm --package=netlify-cli@27.14.2 dlx netlify deploy --prod --no-build --dir=website/build \
             --message "Deploy ${{ github.sha }}" --json > deploy.json
           echo "url=$(jq -r '.url' deploy.json)" >> "$GITHUB_OUTPUT"
