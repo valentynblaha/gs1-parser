@@ -32,3 +32,6 @@ website/api_versions.json
 # Copied into the package at pack time (see gs1-parser prepack)
 gs1-parser/README.md
 gs1-parser/LICENSE
+
+# Local Netlify folder
+.netlify

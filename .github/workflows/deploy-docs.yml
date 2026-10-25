@@ -1,56 +1,23 @@
 name: Deploy Docs
 
+# Netlify builds the docs on every push to main (see netlify.toml), but not on
+# tag pushes. This triggers a rebuild after a release, so the new API version is listed
 on:
-  push:
-    branches:
-      - main
-  # Rebuild after a release, so the new API version is listed
   workflow_run:
     workflows: [Create GitHub Release]
     types:
       - completed
+  workflow_dispatch:
 
-permissions:
-  contents: read
-
-concurrency:
-  group: "docs"
-  cancel-in-progress: false
+permissions: {}
 
 jobs:
-  deploy:
-    if: github.event_name == 'push' || github.event.workflow_run.conclusion == 'success'
-    environment:
-      name: netlify
-      url: ${{ steps.deployment.outputs.url }}
-
+  rebuild:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-        with:
-          fetch-depth: 0 # required to access tags
-
-      - uses: pnpm/setup@v3
-        with:
-          runtime: node@24
-          cache: true
-
-      - name: Install dependencies
-        run: pnpm ci
-
-      - name: Build docs
-        run: pnpm run docs:build
-
-      # The site is built here rather than by Netlify, since the versioned API
-      # reference needs the full git history with tags
-      - name: Deploy to Netlify
-        id: deployment
+      - name: Trigger Netlify build
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: |
-          pnpm --package=netlify-cli@27.14.2 dlx netlify deploy --prod --no-build --dir=website/build \
-            --message "Deploy ${{ github.sha }}" --json > deploy.json
-          echo "url=$(jq -r '.url' deploy.json)" >> "$GITHUB_OUTPUT"
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: curl --fail-with-body -X POST -d '{}' "$NETLIFY_BUILD_HOOK"
