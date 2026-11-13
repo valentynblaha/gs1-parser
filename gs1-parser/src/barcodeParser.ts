@@ -783,6 +783,9 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
             case "6":
               // National Healthcare Reimbursement Number (NHRN) – Italy AIC
               return parseVariableLength("716", "NHRN AIC", codestring, fncChar);
+            case "7":
+              // National Healthcare Reimbursement Number (NHRN) – Costa Rica Sanitary Register Number
+              return parseVariableLength("717", "NHRN SRN", codestring, fncChar);
             default:
               throw new InvalidAiError("71", thirdNumber);
           }
@@ -913,6 +916,9 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
                 case "8":
                   // Date and Time of Production
                   return parseVariableLength("8008", "PROD TIME", codestring, fncChar, 12); // should be exactly 12 digits long
+                case "9":
+                  // Optically readable sensor indicator
+                  return parseVariableLength("8009", "OPTSEN", codestring, fncChar);
                 default:
                   throw new InvalidAiError("800", fourthNumber);
               }
@@ -924,6 +930,12 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
                 case "1":
                   // Component / Part Identifier Serial Number (CPID SERIAL)
                   return parseVariableLength("8011", "CPID SERIAL", codestring, fncChar);
+                case "2":
+                  // Software version
+                  return parseVariableLength("8012", "VERSION", codestring, fncChar);
+                case "3":
+                  // Global model number
+                  return parseVariableLength("8013", "GMN", codestring, fncChar);
                 case "4":
                   // Highly Individualised Device Registration Identifier (HIDRI)
                   return parseVariableLength("8014", "MUDI", codestring, fncChar);
@@ -957,6 +969,23 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
                   return parseVariableLength("8030", "DIGSIG", codestring, fncChar);
                 default:
                   throw new InvalidAiError("803", fourthNumber);
+              }
+            case "4":
+              switch (fourthNumber) {
+                case "0":
+                  // International Mobile Equipment Identity (IMEI)
+                  return parseVariableLength("8040", "IMEI", codestring, fncChar, 15, true); // should be 15 digits long
+                case "1":
+                  // International Mobile Equipment Identity 2 (IMEI2)
+                  return parseVariableLength("8041", "IMEI2", codestring, fncChar, 15, true);
+                case "2":
+                  // Embedded SIM (eSIM)
+                  return parseVariableLength("8042", "ESIM", codestring, fncChar, 32, true);
+                case "3":
+                  // Physical SIM: N18 + optional N..2
+                  return parseVariableLength("8043", "PSIM", codestring, fncChar, 20, true);
+                default:
+                  throw new InvalidAiError("804", fourthNumber);
               }
             default:
               throw new InvalidAiError("80", thirdNumber);
