@@ -242,7 +242,7 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
               // Width, diameter, or second dimension, feet (Variable Measure Trade Item)
               return parseFixedLengthMeasure("325", fourthNumber, "WIDTH (f)", "FOT", codestring);
             case "6":
-              // Width, diameter, or second dimension, yards (Variable Measure Trade Item
+              // Width, diameter, or second dimension, yards (Variable Measure Trade Item)
               return parseFixedLengthMeasure("326", fourthNumber, "WIDTH (y)", "YRD", codestring);
             case "7":
               // Depth, thickness, height, or third dimension, inches (Variable Measure Trade Item)
@@ -284,7 +284,8 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
               // Logistic volume, cubic metres
               return parseFixedLengthMeasure("336", fourthNumber, "VOLUME (m3), log", "MTQ", codestring);
             case "7":
-              // Kilograms per square metre, yes, the ISO code for this _is_ "28".
+              // Kilograms per square metre
+              // Note: yes, the ISO code for this _is_ "28".
               return parseFixedLengthMeasure("337", fourthNumber, "KG PER m²", "28", codestring);
             default:
               throw new InvalidAiError("33", thirdNumber);
@@ -617,7 +618,7 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
                     fncChar,
                   );
                 case "5":
-                  // Not before delivery date/time
+                  // Not after delivery date/time
                   return parseDatetime(
                     "4325",
                     "NAFT DEL DT",
@@ -982,7 +983,7 @@ function parseNextElement(codestring: string, parserOptions: ParserOptions): Par
                   // Embedded SIM (eSIM)
                   return parseVariableLength("8042", "ESIM", codestring, fncChar, 32, true);
                 case "3":
-                  // Physical SIM: N18 + optional N..2
+                  // Physical SIM (pSIM)
                   return parseVariableLength("8043", "PSIM", codestring, fncChar, 20, true);
                 default:
                   throw new InvalidAiError("804", fourthNumber);

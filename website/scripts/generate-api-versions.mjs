@@ -108,6 +108,8 @@ async function generateVersion({name, tag}) {
       name: '@valentynb/gs1-parser',
       readme: 'none',
       disableSources: true,
+      sort: ['source-order'],
+      enumMembersFormat: 'table',
       skipErrorChecking: true,
       logLevel: 'Warn',
     });

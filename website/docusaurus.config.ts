@@ -77,6 +77,8 @@ const config: Config = {
         disableSources: true,
         readme: 'none',
         sidebar: {pretty: true},
+        sort: ['source-order'],
+        enumMembersFormat: 'table',
       },
     ],
     [
