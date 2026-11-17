@@ -706,6 +706,14 @@ export enum GS1Field {
   AMOUNT_PAYABLE_4 = "amountPayable4",
   /** AI (3905) – Applicable Amount Payable, local currency, 5 decimal places */
   AMOUNT_PAYABLE_5 = "amountPayable5",
+  /** AI (3906) – Applicable Amount Payable, local currency, 6 decimal places */
+  AMOUNT_PAYABLE_6 = "amountPayable6",
+  /** AI (3907) – Applicable Amount Payable, local currency, 7 decimal places */
+  AMOUNT_PAYABLE_7 = "amountPayable7",
+  /** AI (3908) – Applicable Amount Payable, local currency, 8 decimal places */
+  AMOUNT_PAYABLE_8 = "amountPayable8",
+  /** AI (3909) – Applicable Amount Payable, local currency, 9 decimal places */
+  AMOUNT_PAYABLE_9 = "amountPayable9",
   /** AI (3910) – Applicable Amount Payable with ISO Currency Code, 0 decimal places */
   AMOUNT_PAYABLE_ISO_0 = "amountPayableISO0",
   /** AI (3911) – Applicable Amount Payable with ISO Currency Code, 1 decimal place */
@@ -718,6 +726,14 @@ export enum GS1Field {
   AMOUNT_PAYABLE_ISO_4 = "amountPayableISO4",
   /** AI (3915) – Applicable Amount Payable with ISO Currency Code, 5 decimal places */
   AMOUNT_PAYABLE_ISO_5 = "amountPayableISO5",
+  /** AI (3916) – Applicable Amount Payable with ISO Currency Code, 6 decimal places */
+  AMOUNT_PAYABLE_ISO_6 = "amountPayableISO6",
+  /** AI (3917) – Applicable Amount Payable with ISO Currency Code, 7 decimal places */
+  AMOUNT_PAYABLE_ISO_7 = "amountPayableISO7",
+  /** AI (3918) – Applicable Amount Payable with ISO Currency Code, 8 decimal places */
+  AMOUNT_PAYABLE_ISO_8 = "amountPayableISO8",
+  /** AI (3919) – Applicable Amount Payable with ISO Currency Code, 9 decimal places */
+  AMOUNT_PAYABLE_ISO_9 = "amountPayableISO9",
   /** AI (3920) – Applicable Amount Payable, single monetary area (Variable Measure Trade Item), 0 decimal places */
   PRICE_0 = "price0",
   /** AI (3921) – Applicable Amount Payable, single monetary area (Variable Measure Trade Item), 1 decimal place */
@@ -726,6 +742,18 @@ export enum GS1Field {
   PRICE_2 = "price2",
   /** AI (3923) – Applicable Amount Payable, single monetary area (Variable Measure Trade Item), 3 decimal places */
   PRICE_3 = "price3",
+  /** AI (3924) – Applicable Amount Payable, single monetary area (Variable Measure Trade Item), 4 decimal places */
+  PRICE_4 = "price4",
+  /** AI (3925) – Applicable Amount Payable, single monetary area (Variable Measure Trade Item), 5 decimal places */
+  PRICE_5 = "price5",
+  /** AI (3926) – Applicable Amount Payable, single monetary area (Variable Measure Trade Item), 6 decimal places */
+  PRICE_6 = "price6",
+  /** AI (3927) – Applicable Amount Payable, single monetary area (Variable Measure Trade Item), 7 decimal places */
+  PRICE_7 = "price7",
+  /** AI (3928) – Applicable Amount Payable, single monetary area (Variable Measure Trade Item), 8 decimal places */
+  PRICE_8 = "price8",
+  /** AI (3929) – Applicable Amount Payable, single monetary area (Variable Measure Trade Item), 9 decimal places */
+  PRICE_9 = "price9",
   /** AI (3930) – Applicable Amount Payable with ISO Currency Code (Variable Measure Trade Item), 0 decimal places */
   PRICE_ISO_0 = "priceISO0",
   /** AI (3931) – Applicable Amount Payable with ISO Currency Code (Variable Measure Trade Item), 1 decimal place */
@@ -734,6 +762,18 @@ export enum GS1Field {
   PRICE_ISO_2 = "priceISO2",
   /** AI (3933) – Applicable Amount Payable with ISO Currency Code (Variable Measure Trade Item), 3 decimal places */
   PRICE_ISO_3 = "priceISO3",
+  /** AI (3934) – Applicable Amount Payable with ISO Currency Code (Variable Measure Trade Item), 4 decimal places */
+  PRICE_ISO_4 = "priceISO4",
+  /** AI (3935) – Applicable Amount Payable with ISO Currency Code (Variable Measure Trade Item), 5 decimal places */
+  PRICE_ISO_5 = "priceISO5",
+  /** AI (3936) – Applicable Amount Payable with ISO Currency Code (Variable Measure Trade Item), 6 decimal places */
+  PRICE_ISO_6 = "priceISO6",
+  /** AI (3937) – Applicable Amount Payable with ISO Currency Code (Variable Measure Trade Item), 7 decimal places */
+  PRICE_ISO_7 = "priceISO7",
+  /** AI (3938) – Applicable Amount Payable with ISO Currency Code (Variable Measure Trade Item), 8 decimal places */
+  PRICE_ISO_8 = "priceISO8",
+  /** AI (3939) – Applicable Amount Payable with ISO Currency Code (Variable Measure Trade Item), 9 decimal places */
+  PRICE_ISO_9 = "priceISO9",
   /** AI (3940) – Percentage discount of a coupon, 0 decimal places */
   PERCENT_DISCOUNT_0 = "percentDiscount0",
   /** AI (3941) – Percentage discount of a coupon, 1 decimal place */
@@ -1401,20 +1441,40 @@ export const AIMap: Record<string, GS1Field> = {
   ai3903: GS1Field.AMOUNT_PAYABLE_3,
   ai3904: GS1Field.AMOUNT_PAYABLE_4,
   ai3905: GS1Field.AMOUNT_PAYABLE_5,
+  ai3906: GS1Field.AMOUNT_PAYABLE_6,
+  ai3907: GS1Field.AMOUNT_PAYABLE_7,
+  ai3908: GS1Field.AMOUNT_PAYABLE_8,
+  ai3909: GS1Field.AMOUNT_PAYABLE_9,
   ai3910: GS1Field.AMOUNT_PAYABLE_ISO_0,
   ai3911: GS1Field.AMOUNT_PAYABLE_ISO_1,
   ai3912: GS1Field.AMOUNT_PAYABLE_ISO_2,
   ai3913: GS1Field.AMOUNT_PAYABLE_ISO_3,
   ai3914: GS1Field.AMOUNT_PAYABLE_ISO_4,
   ai3915: GS1Field.AMOUNT_PAYABLE_ISO_5,
+  ai3916: GS1Field.AMOUNT_PAYABLE_ISO_6,
+  ai3917: GS1Field.AMOUNT_PAYABLE_ISO_7,
+  ai3918: GS1Field.AMOUNT_PAYABLE_ISO_8,
+  ai3919: GS1Field.AMOUNT_PAYABLE_ISO_9,
   ai3920: GS1Field.PRICE_0,
   ai3921: GS1Field.PRICE_1,
   ai3922: GS1Field.PRICE_2,
   ai3923: GS1Field.PRICE_3,
+  ai3924: GS1Field.PRICE_4,
+  ai3925: GS1Field.PRICE_5,
+  ai3926: GS1Field.PRICE_6,
+  ai3927: GS1Field.PRICE_7,
+  ai3928: GS1Field.PRICE_8,
+  ai3929: GS1Field.PRICE_9,
   ai3930: GS1Field.PRICE_ISO_0,
   ai3931: GS1Field.PRICE_ISO_1,
   ai3932: GS1Field.PRICE_ISO_2,
   ai3933: GS1Field.PRICE_ISO_3,
+  ai3934: GS1Field.PRICE_ISO_4,
+  ai3935: GS1Field.PRICE_ISO_5,
+  ai3936: GS1Field.PRICE_ISO_6,
+  ai3937: GS1Field.PRICE_ISO_7,
+  ai3938: GS1Field.PRICE_ISO_8,
+  ai3939: GS1Field.PRICE_ISO_9,
   ai3940: GS1Field.PERCENT_DISCOUNT_0,
   ai3941: GS1Field.PERCENT_DISCOUNT_1,
   ai3942: GS1Field.PERCENT_DISCOUNT_2,
