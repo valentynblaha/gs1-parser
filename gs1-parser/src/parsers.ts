@@ -22,9 +22,9 @@ export function parseFloatingPoint(
   numberOfFractionals: number,
   negative: boolean = false,
 ): number {
-  const offset = stringToParse.length - numberOfFractionals;
-  const auxString =
-    (negative ? "-" : "") + stringToParse.slice(0, offset) + "." + stringToParse.slice(offset);
+  const digits = stringToParse.padStart(numberOfFractionals + 1, "0");
+  const offset = digits.length - numberOfFractionals;
+  const auxString = (negative ? "-" : "") + digits.slice(0, offset) + "." + digits.slice(offset);
   try {
     return Number.parseFloat(auxString);
   } catch (error_) {
@@ -41,12 +41,7 @@ export function parseFloatingPoint(
  * @param {String} codeString the codeString to parse the date from
  * @param {Boolean} utc  whether to parse the date as UTC or local time
  */
-export function parseDate(
-  ai: string,
-  title: string,
-  codeString: string,
-  utc: boolean
-): ParseResult<Date> {
+export function parseDate(ai: string, title: string, codeString: string, utc: boolean): ParseResult<Date> {
   let elementToReturn = new ParsedElementClass<Date>(ai, title, ElementType.Date);
   const offSet = ai.length;
   let dataString: string = "";
